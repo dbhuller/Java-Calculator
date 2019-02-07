@@ -17,9 +17,22 @@ public abstract class Operator {
     // HashMap operators = new HashMap();
     // operators.put( "+", new AdditionOperator() );
     // operators.put( "-", new SubtractionOperator() );
-    
+
+    //initialize HashMap operators to hold string "operator"
+    // and Operator object
+    static final HashMap<String, Operator> operators = new HashMap<>();
+
+    static {
+        operators.put( "+", new AddOperator() );
+        operators.put( "-", new SubtractOperator() );
+        operators.put( "*", new MultiplyOperator() );
+        operators.put( "/", new DivideOperator() );
+        operators.put( "^", new PowerOperator() );
+    }
     
     public abstract int priority();
+
+
     public abstract Operand execute(Operand op1, Operand op2 );
 
 
@@ -30,9 +43,11 @@ public abstract class Operator {
      * Think about what happens if we add more operators.
      */
     public static boolean check( String token ) {
-        return false;
+        return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/") || token.equals("^") || token.equals("(") || token.equals(")");
     }
 
 
-    public static Operator getOperator(String token){return null;}
+    public static Operator getOperator(String token){
+        return operators.get(token); // was previously null
+    }
 }

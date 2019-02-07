@@ -4,6 +4,7 @@ package edu.csc413.calculator.evaluator;
 
 import edu.csc413.calculator.operators.Operator;
 
+
 import java.util.Stack;
 import java.util.StringTokenizer;
 
@@ -13,6 +14,7 @@ public class Evaluator {
   private StringTokenizer tokenizer;
   private static final String DELIMITERS = "+-*^/";
 
+  // DB- Initialize two stack objects to keep track of operands and operators
   public Evaluator() {
     operandStack = new Stack<>();
     operatorStack = new Stack<>();
@@ -29,6 +31,7 @@ public class Evaluator {
     // the priority of any operator in the operator stack other than
     // the usual mathematical operators - "+-*/" - should be less than the priority
     // of the usual operators
+
 
 
 
