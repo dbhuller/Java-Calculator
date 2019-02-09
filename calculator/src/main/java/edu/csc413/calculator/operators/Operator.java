@@ -18,10 +18,11 @@ public abstract class Operator {
     // operators.put( "+", new AdditionOperator() );
     // operators.put( "-", new SubtractionOperator() );
 
-    //initialize HashMap operators to hold string "operator"
+    // initialize HashMap operators to hold string "operator"
     // and Operator object
     static final HashMap<String, Operator> operators = new HashMap<>();
 
+    // static initializer
     static {
         operators.put( "+", new AddOperator() );
         operators.put( "-", new SubtractOperator() );
