@@ -2,7 +2,7 @@ package edu.csc413.calculator.evaluator;
 
 
 
-import edu.csc413.calculator.operators.Operator;
+import edu.csc413.calculator.operators.*;
 
 
 import java.util.Stack;
@@ -31,6 +31,19 @@ public class Evaluator {
     // the priority of any operator in the operator stack other than
     // the usual mathematical operators - "+-*/" - should be less than the priority
     // of the usual operators
+      operatorStack.push(new Operator() {   //initialize operator stack with priority
+          @Override
+          public int priority() {
+              return 0;
+          }
+
+          @Override
+          public Operand execute(Operand op1, Operand op2) {
+              return null;
+          }
+
+
+      });
 
 
 
@@ -46,13 +59,33 @@ public class Evaluator {
             System.out.println( "*****invalid token******" );
             throw new RuntimeException("*****invalid token******");
           }
+          if (token.equals("+")) {
+              operatorStack.push(new AddOperator());
+              continue;
+          }
+          if (token.equals("-")) {
+              operatorStack.push(new SubtractOperator());
+              continue;
+          }
+          if (token.equals("/")) {
+              operatorStack.push(new DivideOperator());
+              continue;
+          }
+          if (token.equals("*")) {
+              operatorStack.push(new MultiplyOperator());
+              continue;
+          }
+          if (token.equals("^")) {
+              operatorStack.push(new PowerOperator());
+              continue;
+          }
 
 
           // TODO Operator is abstract - these two lines will need to be fixed:
           // The Operator class should contain an instance of a HashMap,
           // and values will be instances of the Operators.  See Operator class
           // skeleton for an example.
-          Operator newOperator = new Operator();
+          Operator newOperator = new Operator.getOperator(token);
           
           while (operatorStack.peek().priority() >= newOperator.priority() ) {
             // note that when we eval the expression 1 - 2 we will
@@ -81,7 +114,8 @@ public class Evaluator {
     // evaluating the operator stack until it only contains the init operator;
     // Suggestion: create a method that takes an operator as argument and
     // then executes the while loop.
+
     
-    return 0;
+    return operandStack.pop().getValue();
   }
 }
