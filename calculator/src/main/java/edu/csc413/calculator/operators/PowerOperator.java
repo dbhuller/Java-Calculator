@@ -3,12 +3,13 @@ package edu.csc413.calculator.operators;
 import edu.csc413.calculator.evaluator.Operand;
 
 public class PowerOperator extends Operator {
-    @Override
+    @Override   // override method from super
     public int priority() {
-        return 3;
+        int priority = 3;
+        return priority;
     }
 
-    @Override
+    @Override   // override method from super
     public Operand execute(Operand op1, Operand op2) {
         Operand ans = new Operand( power(op1.getValue(), op2.getValue()) );
         return ans;

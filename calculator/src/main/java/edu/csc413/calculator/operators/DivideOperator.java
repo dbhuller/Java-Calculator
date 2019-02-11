@@ -5,7 +5,8 @@ import edu.csc413.calculator.evaluator.Operand;
 public class DivideOperator extends Operator {
     @Override
     public int priority() {
-        return 2;
+        int priority = 2;
+        return priority;
     }
 
     @Override

@@ -5,7 +5,8 @@ import edu.csc413.calculator.evaluator.Operand;
 public class SubtractOperator extends Operator {
     @Override
     public int priority() {
-        return 1;
+        int priority = 1;
+        return priority;
     }
 
     @Override
