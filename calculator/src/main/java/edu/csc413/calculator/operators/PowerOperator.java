@@ -11,15 +11,15 @@ public class PowerOperator extends Operator {
 
     @Override   // override method from super
     public Operand execute(Operand op1, Operand op2) {
-        Operand ans = new Operand( power(op1.getValue(), op2.getValue()) );
-        return ans;
+        Operand result = new Operand( power(op1.getValue(), op2.getValue()) );
+        return result;
     }
 
     public int power(int i, int j) {
-        int ans = i;
+        int val = i;
         for (int count = 2; count <= j; count++) {
-            ans = ans * i;
+            val = val * i;
         }
-        return ans;
+        return val;
     }
 }

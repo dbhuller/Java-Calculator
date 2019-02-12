@@ -22,13 +22,33 @@ public class Evaluator {
     operatorStack = new Stack<>();
   }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
+  // while the top of the stack has priority > 1, pop operatorStack, pop from Operand stack operand1, and operand 2 --> execute and push to operandStack as result of expression
+  public void process() {
+      while(operatorStack.peek().priority() > 1) {
+          Operator oldOp = operatorStack.pop();
+          Operand op2 = operandStack.pop();
+          Operand op1 = operandStack.pop();
+          operandStack.push(oldOp.execute(op1, op2));
+      }
+  }
 
     public int eval(String expression ) {
     String token;
+
+    //
+    operatorStack.push(new Operator() {
+        @Override
+        public int priority() {
+            return 0;
+        }
+
+        @Override
+        public Operand execute(Operand op1, Operand op2) {
+            return null;
+        }
+
+
+    });
 
     // The 3rd argument is true to indicate that the delimiters should be used
     // as tokens, too. But, we'll need to remember to filter out spaces.
@@ -38,19 +58,7 @@ public class Evaluator {
     // the priority of any operator in the operator stack other than
     // the usual mathematical operators - "+-*/" - should be less than the priority
     // of the usual operators
-      operatorStack.push(new Operator() {   //initialize operator stack with priority
-          @Override
-          public int priority() {
-              return 0;
-          }
 
-          @Override
-          public Operand execute(Operand op1, Operand op2) {
-              return null;
-          }
-
-
-      });
 
 
 
@@ -68,24 +76,31 @@ public class Evaluator {
           }
           if (token.equals("+")) {
               operatorStack.push(new AddOperator());
+              process();
               continue;
           }
           if (token.equals("-")) {
               operatorStack.push(new SubtractOperator());
+              process();
               continue;
           }
           if (token.equals("/")) {
               operatorStack.push(new DivideOperator());
+              process();
               continue;
           }
           if (token.equals("*")) {
               operatorStack.push(new MultiplyOperator());
+              process();
               continue;
           }
           if (token.equals("^")) {
               operatorStack.push(new PowerOperator());
+              process();
               continue;
           }
+
+          /*
           //sort operator into correct priority in operatorStack
           Operator newOperator = Operator.getOperator(token);
           if (operatorStack.isEmpty()) {
@@ -95,6 +110,7 @@ public class Evaluator {
                   operatorStack.push(newOperator);
               }
           }
+          */
 
 
 
