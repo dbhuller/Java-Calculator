@@ -22,7 +22,12 @@ public class Evaluator {
     operatorStack = new Stack<>();
   }
 
-  public int eval( String expression ) {
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    public int eval(String expression ) {
     String token;
 
     // The 3rd argument is true to indicate that the delimiters should be used
