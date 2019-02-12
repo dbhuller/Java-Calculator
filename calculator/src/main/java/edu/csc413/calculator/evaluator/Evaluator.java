@@ -14,6 +14,8 @@ public class Evaluator {
   private StringTokenizer tokenizer;
   private static final String DELIMITERS = "+-*^/";
 
+
+
   // DB- Initialize two stack objects to keep track of operands and operators
   public Evaluator() {
     operandStack = new Stack<>();
@@ -79,13 +81,22 @@ public class Evaluator {
               operatorStack.push(new PowerOperator());
               continue;
           }
+          //sort operator into correct priority in operatorStack
+          Operator newOperator = Operator.getOperator(token);
+          if (operatorStack.isEmpty()) {
+              Operator stackPop = operatorStack.pop();
+              if (stackPop.priority() <= newOperator.priority()) {
+                  operatorStack.push(stackPop); //push higher precedence(3"^") to bottom to be evaluated after lower precedence(1"+/-")
+                  operatorStack.push(newOperator);
+              }
+          }
+
 
 
           // TODO Operator is abstract - these two lines will need to be fixed:
           // The Operator class should contain an instance of a HashMap,
           // and values will be instances of the Operators.  See Operator class
           // skeleton for an example.
-          Operator newOperator = new Operator.getOperator(token);
           
           while (operatorStack.peek().priority() >= newOperator.priority() ) {
             // note that when we eval the expression 1 - 2 we will
