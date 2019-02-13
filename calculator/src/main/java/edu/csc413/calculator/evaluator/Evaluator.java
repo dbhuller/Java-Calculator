@@ -13,7 +13,7 @@ public class Evaluator {
   private Stack<Operand> operandStack;
   private Stack<Operator> operatorStack;
   private StringTokenizer tokenizer;
-  private static final String DELIMITERS = "#()+-*^/ ";
+  private static final String DELIMITERS = "$()+-*^/ ";
   private HashMap<String, Operator> hashMap;
 
 
@@ -26,7 +26,7 @@ public class Evaluator {
 
   /*
   // while the top of the stack has priority > 1, pop operatorStack, pop from Operand stack operand1, and operand 2 --> execute and push to operandStack as result of expression
-  public void process() {
+  public void reachedClosedPar() {
       while(operatorStack.peek().priority() > 1) {
           Operator oldOp = operatorStack.pop();
           Operand op2 = operandStack.pop();

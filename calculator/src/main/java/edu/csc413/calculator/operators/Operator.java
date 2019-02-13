@@ -31,7 +31,7 @@ public abstract class Operator {
         operators.put( "^", new PowerOperator() );
         operators.put( "(", new LeftParOperator() );
         operators.put( ")", new RightParOperator() );
-        operators.put( "#", new BeginExpressionOperator() );
+        operators.put( "$", new BeginExpressionOperator() );
     }
     
     public abstract int priority();
