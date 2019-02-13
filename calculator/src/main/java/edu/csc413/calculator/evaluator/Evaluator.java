@@ -43,6 +43,7 @@ public class Evaluator {
           Operand op1 = operandStack.pop();
           operandStack.push(temp.execute(op1, op2));
       }
+      operatorStack.pop();
   }
 
     public int eval(String expression ) {
