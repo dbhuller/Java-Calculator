@@ -13,16 +13,15 @@ public class Evaluator {
   private Stack<Operand> operandStack;
   private Stack<Operator> operatorStack;
   private StringTokenizer tokenizer;
-  private static final String DELIMITERS = "!#()+-*^/ ";
+  private static final String DELIMITERS = "#()+-*^/ ";
   private HashMap<String, Operator> hashMap;
 
 
 
   // DB- Initialize two stack objects to keep track of operands and operators
   public Evaluator() {
-    operandStack = new Stack<Operand>();
-    operatorStack = new Stack<Operator>();
-    hashMap = new HashMap<String, Operator>();
+    operandStack = new Stack<>();
+    operatorStack = new Stack<>();
   }
 
   /*
@@ -40,9 +39,9 @@ public class Evaluator {
   public void reachedClosedPar() {
       while (operatorStack.peek().priority() >= 1) {
           Operator temp = operatorStack.pop();
-          Operand oprd2 = operandStack.pop();
-          Operand oprd1 = operandStack.pop();
-          operandStack.push(temp.execute(oprd1, oprd2));
+          Operand op2 = operandStack.pop();
+          Operand op1 = operandStack.pop();
+          operandStack.push(temp.execute(op1, op2));
       }
   }
 
@@ -66,7 +65,7 @@ public class Evaluator {
 
 
     while ( this.tokenizer.hasMoreTokens() ) {
-      // filter out spaces
+      // filter out spaces(returns token after space)
       if ( !( token = this.tokenizer.nextToken() ).equals( " " )) {
         // check if token is an operand
         if ( Operand.check( token )) {
@@ -76,20 +75,31 @@ public class Evaluator {
             System.out.println( "*****invalid token******" );
             throw new RuntimeException("*****invalid token******");
           }
+          //ADDED 9:38 pm 2/12/2019
+          if (Operator.check(token)) {
 
-          Operator newOperator = Operator.getOperator(token);
-          if (operatorStack.isEmpty()) {
-              operatorStack.add(newOperator);
-              continue;
+              Operator newOperator = Operator.getOperator(token);
+              if (operatorStack.isEmpty()) {
+                  operatorStack.add(newOperator);
+                  continue;
+              }
+              if (token.equals(")")) {
+                  reachedClosedPar();
+                  continue;
+              }
+              if (token.equals("(")) {
+                  operatorStack.push(new LeftParOperator());
+                  continue;
+              }
+
           }
-          if (token.equals(")")) {
-              reachedClosedPar();
-              continue;
+
+
+          /*
+          if (newOperator.check(token)) {
+              operatorStack.push(Operator.getOperator(token));
           }
-          if (token.equals("(")) {
-              operatorStack.push(new LeftParOperator());
-              continue;
-          }
+          */
 
 
           /*
@@ -110,7 +120,7 @@ public class Evaluator {
           // The Operator class should contain an instance of a HashMap,
           // and values will be instances of the Operators.  See Operator class
           // skeleton for an example.
-          
+            Operator newOperator = Operator.getOperator(token);
           while (operatorStack.peek().priority() >= newOperator.priority() ) {
             // note that when we eval the expression 1 - 2 we will
             // push the 1 then the 2 and then do the subtraction operation
