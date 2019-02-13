@@ -29,6 +29,9 @@ public abstract class Operator {
         operators.put( "*", new MultiplyOperator() );
         operators.put( "/", new DivideOperator() );
         operators.put( "^", new PowerOperator() );
+        operators.put( "(", new LeftParOperator());
+        operators.put( ")", new RightParOperator());
+        operators.put( "#", new BeginExpressionOperator());
     }
     
     public abstract int priority();
@@ -44,7 +47,7 @@ public abstract class Operator {
      * Think about what happens if we add more operators.
      */
     public static boolean check( String token ) {
-        return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/") || token.equals("^") || token.equals("(") || token.equals(")");
+        return operators.containsKey(token);
     }
 
 

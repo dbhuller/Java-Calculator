@@ -8,6 +8,13 @@ public class Operand {
   private int value;
 
   /**
+   * Constructor with nothing inside
+   */
+  public Operand() {
+
+  }
+
+  /**
   * construct operand from string token.
   */  
   public Operand( String token ) {

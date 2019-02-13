@@ -7,21 +7,25 @@ import edu.csc413.calculator.operators.*;
 
 import java.util.Stack;
 import java.util.StringTokenizer;
+import java.util.HashMap;
 
 public class Evaluator {
   private Stack<Operand> operandStack;
   private Stack<Operator> operatorStack;
   private StringTokenizer tokenizer;
-  private static final String DELIMITERS = "+-*^/";
+  private static final String DELIMITERS = "!#()+-*^/ ";
+  private HashMap<String, Operator> hashMap;
 
 
 
   // DB- Initialize two stack objects to keep track of operands and operators
   public Evaluator() {
-    operandStack = new Stack<>();
-    operatorStack = new Stack<>();
+    operandStack = new Stack<Operand>();
+    operatorStack = new Stack<Operator>();
+    hashMap = new HashMap<String, Operator>();
   }
 
+  /*
   // while the top of the stack has priority > 1, pop operatorStack, pop from Operand stack operand1, and operand 2 --> execute and push to operandStack as result of expression
   public void process() {
       while(operatorStack.peek().priority() > 1) {
@@ -31,24 +35,22 @@ public class Evaluator {
           operandStack.push(oldOp.execute(op1, op2));
       }
   }
+  */
+
+  public void reachedClosedPar() {
+      while (operatorStack.peek().priority() >= 1) {
+          Operator temp = operatorStack.pop();
+          Operand oprd2 = operandStack.pop();
+          Operand oprd1 = operandStack.pop();
+          operandStack.push(temp.execute(oprd1, oprd2));
+      }
+  }
 
     public int eval(String expression ) {
     String token;
 
-    //
-    operatorStack.push(new Operator() {
-        @Override
-        public int priority() {
-            return 0;
-        }
-
-        @Override
-        public Operand execute(Operand op1, Operand op2) {
-            return null;
-        }
-
-
-    });
+    //push initial operator to keep track of end of stack
+    operatorStack.push(new BeginExpressionOperator());
 
     // The 3rd argument is true to indicate that the delimiters should be used
     // as tokens, too. But, we'll need to remember to filter out spaces.
@@ -74,31 +76,21 @@ public class Evaluator {
             System.out.println( "*****invalid token******" );
             throw new RuntimeException("*****invalid token******");
           }
-          if (token.equals("+")) {
-              operatorStack.push(new AddOperator());
-              process();
+
+          Operator newOperator = Operator.getOperator(token);
+          if (operatorStack.isEmpty()) {
+              operatorStack.add(newOperator);
               continue;
           }
-          if (token.equals("-")) {
-              operatorStack.push(new SubtractOperator());
-              process();
+          if (token.equals(")")) {
+              reachedClosedPar();
               continue;
           }
-          if (token.equals("/")) {
-              operatorStack.push(new DivideOperator());
-              process();
+          if (token.equals("(")) {
+              operatorStack.push(new LeftParOperator());
               continue;
           }
-          if (token.equals("*")) {
-              operatorStack.push(new MultiplyOperator());
-              process();
-              continue;
-          }
-          if (token.equals("^")) {
-              operatorStack.push(new PowerOperator());
-              process();
-              continue;
-          }
+
 
           /*
           //sort operator into correct priority in operatorStack
@@ -133,6 +125,13 @@ public class Evaluator {
           operatorStack.push( newOperator );
         }
       }
+    }
+
+    while (operatorStack.peek().priority() > 0) {
+        Operator operatorStackPop = operatorStack.pop();
+        Operand op2 = operandStack.pop();
+        Operand op1 = operandStack.pop();
+        operandStack.push(operatorStackPop.execute(op1, op2));
     }
 
     
