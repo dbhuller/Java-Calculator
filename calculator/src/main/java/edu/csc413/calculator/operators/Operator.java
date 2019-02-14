@@ -20,7 +20,7 @@ public abstract class Operator {
 
     // initialize HashMap operators to hold string "operator"
     // and Operator object
-    static final HashMap<String, Operator> operators = new HashMap<>();
+    private static final HashMap<String, Operator> operators = new HashMap<>();
 
     // static initializer
     static {

@@ -13,12 +13,12 @@ public class Evaluator {
   private Stack<Operand> operandStack;
   private Stack<Operator> operatorStack;
   private StringTokenizer tokenizer;
-  private static final String DELIMITERS = "$()+-*^/ ";
+  private static final String DELIMITERS = "$()+-*^/ "; // added $(BeginExpressionOperator) and " " (space) and "(" ")"
   private HashMap<String, Operator> hashMap;
 
 
 
-  // DB- Initialize two stack objects to keep track of operands and operators
+  // Initialize two stack objects to keep track of operands and operators
   public Evaluator() {
     operandStack = new Stack<>();
     operatorStack = new Stack<>();
@@ -77,17 +77,21 @@ public class Evaluator {
             throw new RuntimeException("*****invalid token******");
           }
           //ADDED 9:38 pm 2/12/2019
+            //if token is an operator
           if (Operator.check(token)) {
-
+                // new instance of operator, call method get operator and return corresponding value for key from hashmap in operator
               Operator newOperator = Operator.getOperator(token);
+              // if stack is empty, add newOperator to the stack
               if (operatorStack.isEmpty()) {
                   operatorStack.add(newOperator);
                   continue;
               }
+              // if token is a ")", call reachedClosedPar()
               if (token.equals(")")) {
                   reachedClosedPar();
                   continue;
               }
+              //if token is "(", push new LeftParOperator() to stack
               if (token.equals("(")) {
                   operatorStack.push(new LeftParOperator());
                   continue;
@@ -158,6 +162,6 @@ public class Evaluator {
     // then executes the while loop.
 
     
-    return operandStack.pop().getValue();
+    return operandStack.pop().getValue(); // return final operand in stack and getValue()
   }
 }

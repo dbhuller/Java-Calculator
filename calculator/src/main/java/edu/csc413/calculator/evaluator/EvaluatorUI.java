@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class EvaluatorUI extends JFrame implements ActionListener {
 
@@ -62,10 +63,89 @@ public class EvaluatorUI extends JFrame implements ActionListener {
         setLocationByPlatform(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-    }
 
+        //Added by me
+
+    }
+    /*
+    private JLabel headerLabel;
+    private void showColorChooserDemo() {
+        headerLabel.setText("JColorChooser");
+        JButton chooseButton = new JButton("Choose Background");
+
+        chooseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Color backgroundColor - JColorChooser.showDialog(mainFrame, "Choose background color", Color.white);
+                if(backgroundColor != null) {
+                    controlPan
+                }
+            }
+        });
+    }
+    */
     public void actionPerformed(ActionEvent arg0) {
         // You need to fill in this fuction
-        this.txField.setText(this.txField.getText()+arg0.getActionCommand());
+        if (arg0.getSource() == buttons[0]) {
+            txField.setText(txField.getText() + bText[0]);
+        }
+        if (arg0.getSource() == buttons[1]) {
+            txField.setText(txField.getText() + bText[1]);
+        }
+        if (arg0.getSource() == buttons[2]) {
+            txField.setText(txField.getText() + bText[2]);
+        }
+        if (arg0.getSource() == buttons[3]) {
+            txField.setText(txField.getText() + bText[3]);
+        }
+        if (arg0.getSource() == buttons[4]) {
+            txField.setText(txField.getText() + bText[4]);
+        }
+        if (arg0.getSource() == buttons[5]) {
+            txField.setText(txField.getText() + bText[5]);
+        }
+        if (arg0.getSource() == buttons[6]) {
+            txField.setText(txField.getText() + bText[6]);
+        }
+        if (arg0.getSource() == buttons[7]) {
+            txField.setText(txField.getText() + bText[7]);
+        }
+        if (arg0.getSource() == buttons[8]) {
+            txField.setText(txField.getText() + bText[8]);
+        }
+        if (arg0.getSource() == buttons[9]) {
+            txField.setText(txField.getText() + bText[9]);
+        }
+        if (arg0.getSource() == buttons[10]) {
+            txField.setText(txField.getText() + bText[10]);
+        }
+        if (arg0.getSource() == buttons[11]) {
+            txField.setText(txField.getText() + bText[11]);
+        }
+        if (arg0.getSource() == buttons[12]) {
+            txField.setText(txField.getText() + bText[12]);
+        }
+        if (arg0.getSource() == buttons[13]) {
+            txField.setText(txField.getText() + bText[13]);
+        }
+        if (arg0.getSource() == buttons[14]) {
+            Evaluator calc = new Evaluator();
+            txField.setText(Integer.toString(calc.eval(txField.getText())));
+        }
+        if (arg0.getSource() == buttons[15]) {
+            txField.setText(txField.getText() + bText[15]);
+        }
+        if (arg0.getSource() == buttons[16]) {
+            txField.setText(txField.getText() + bText[16]);
+        }
+        if (arg0.getSource() == buttons[17]) {
+            txField.setText(txField.getText() + bText[17]);
+        }
+        if (arg0.getSource() == buttons[18]) {
+            txField.setText(" ");
+        }
+        if (arg0.getSource() == buttons[19]) {
+            txField.setText(" ");
+        }
     }
 }
