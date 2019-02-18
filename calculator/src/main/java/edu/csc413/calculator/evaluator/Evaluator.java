@@ -14,7 +14,7 @@ public class Evaluator {
   private Stack<Operator> operatorStack;
   private StringTokenizer tokenizer;
   private static final String DELIMITERS = "$()+-*^/ "; // added $(BeginExpressionOperator) and " " (space) and "(" ")"
-  private HashMap<String, Operator> hashMap
+  private HashMap<String, Operator> hashMap;
 
 
   // Initialize two stack objects to keep track of operands and operators
