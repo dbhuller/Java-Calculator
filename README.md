@@ -1,28 +1,9 @@
-# CSC 413 - Project One
+# Java Calculator
 
-## Student Name  : Deepinder Bhuller
-
-## Student ID    : 911770878
-
-## Student Email : dbhuller@mail.sfsu.edu
-
-### Note failure to completely fill out this README.md could cause you to recieve a  0 for your project until correctly done
-
-## Adding the JUnit 5 Jars to your project.
-
-### InteliJ
-In order to use the Unit tests given you will need to let intelij know where to find the needed jars. (jars are just java version of an archived folder or zip file.). 
-
-Intelij will actually find these jars for you while imporiting the project.
-
-If for some reason it does not, you can add the jars in the following way:
-
-1. Complete the process for "create project from existing resources"
-2. Then go to File -> Project Structure.
-3. Inside project Structure select the "Libraries" tab on the left.
-4. You will see a "+" symbol near the top of the window. CLick this symbol.
-5. A little window will popup asking what kind of library you want to import. Select "jar"
-6. After selection jar, a file selector will appear, navigate to the folder calcualtor/src/test/resources
-7. Add ALL jars in this folder. Then hit OK/Accept until all windows for project structure are closed.
-8. Now all jar needed to run unit test should be attached to your project.
-9. To run unit tests you can simply select any of the files in test/java. Also you may right-slick on the java folder inside test and select run all tests to run all given unit tests.
+# Project Description
+Developed simple expression evaluator with GUI interface in Java. Implemented Classes to act as operators and operands and evaluate expressions and display output in a simple calculator GUI
+### IDE Info
+IntelliJ IDEA 2018.3.5 (Ultimate Edition)
+JRE: 1.8.0_152-release-1343-b28 amd64
+JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
+Windows 10 10.0
